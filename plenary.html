@@ -1,0 +1,182 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script type="text/javascript">
+    var some = 0;
+    var most = 0;
+    var all = 0;
+    var none = 0;
+    var total = 0;
+
+    var some_post = 0;
+    var most_post = 0;
+    var all_post = 0;
+    var none_post = 0;
+    var total_post = 0;
+
+    function setup() {
+        document.getElementById('all_text').innerHTML = "<strong>All</strong>: " + document.getElementById('all').value;
+        document.getElementById('most_text').innerHTML = "<strong>Most</strong>: " + document.getElementById('most').value;
+        document.getElementById('some_text').innerHTML = "<strong>Some</strong>: " + document.getElementById('some').value;
+
+        document.getElementById('pre').style.display = 'block';
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('before-bar').style.display = 'block';
+        document.getElementById('after-bar').style.display = 'none';
+    }
+
+    function setup_post() {
+        document.getElementById('all_text_post').innerHTML = "<strong>All</strong>: " + document.getElementById('all').value;
+        document.getElementById('most_text_post').innerHTML = "<strong>Most</strong>: " + document.getElementById('most').value;
+        document.getElementById('some_text_post').innerHTML = "<strong>Some</strong>: " + document.getElementById('some').value;
+
+        document.getElementById('pre').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('after-bar').style.display = 'block';
+    }
+
+    function increase_post(type) {
+        if (type == 'all') {
+            all_post++;
+            val = all_post;
+        } else if (type == 'most') {
+            most_post++;
+            val = most_post;
+        } else if (type == 'some') {
+            some_post++;
+            val = some_post;
+        } else {
+            none_post++;
+            val = none_post;
+        }
+        total_post++;
+        document.getElementById(type + '_count_post').innerHTML = val;
+        document.getElementById('progress-bar-success-post').setAttribute("style", "width:" + all_post / total_post * 100 + "%");
+        document.getElementById('progress-bar-warning-post').setAttribute("style", "width:" + most_post / total_post * 100 + "%");
+        document.getElementById('progress-bar-danger-post').setAttribute("style", "width:" + some_post / total_post * 100 + "%");
+    }
+
+ function increase(type) {
+   if (type == 'all') {
+        all++;
+        val = all;
+   } else if (type == 'most') {
+        most++;
+        val = most;
+   } else if (type == 'some') {
+        some++;
+        val = some;
+   } else {
+        none++;
+        val = none;
+   }
+   total++;
+   document.getElementById(type + '_count').innerHTML = val;
+   document.getElementById('progress-bar-success').setAttribute("style", "width:" + all / total * 100 + "%");
+   document.getElementById('progress-bar-warning').setAttribute("style", "width:" + most / total * 100 + "%");
+   document.getElementById('progress-bar-danger').setAttribute("style", "width:" + some / total * 100 + "%");
+ }
+  </script>
+</head>
+
+<body>
+  <div style="margin: 0 auto; width: 70%">
+    <div id="setup">
+      <h2>All</h2>
+      <textarea id="all" class="form-control" rows="3"></textarea>
+      <h2>Most</h2>
+      <textarea id="most" class="form-control" rows="3"></textarea>
+      <h2>Some</h2>
+      <textarea id="some" class="form-control" rows="3"></textarea>
+      <br />
+      <button type="button" class="btn" onclick="setup();">Pre- and post-lesson check</button>
+      <button type="button" class="btn" onclick="setup_post();">Post-lesson only</button>
+    </div>
+      <div id="before-bar" style="display:none;">
+      <h2>Before</h2>
+      <div class="progress">
+        <div id="progress-bar-success" class="progress-bar progress-bar-success" style="width: 0%">
+          <span class="sr-only">35% Complete (success)</span>
+        </div>
+        <div id="progress-bar-warning" class="progress-bar progress-bar-warning progress-bar-striped" style="width: 0%">
+          <span class="sr-only">20% Complete (warning)</span>
+        </div>
+        <div id="progress-bar-danger" class="progress-bar progress-bar-danger" style="width: 0%">
+        </div>
+      </div>
+      </div>
+      
+      
+      <div id="after-bar" style="display:none;">
+        <h2>After</h2>
+        <div class="progress">
+            <div id="progress-bar-success-post" class="progress-bar progress-bar-success" style="width: 0%">
+              <span class="sr-only">35% Complete (success)</span>
+            </div>
+            <div id="progress-bar-warning-post" class="progress-bar progress-bar-warning progress-bar-striped" style="width: 0%">
+              <span class="sr-only">20% Complete (warning)</span>
+            </div>
+            <div id="progress-bar-danger-post" class="progress-bar progress-bar-danger" style="width: 0%">
+            </div>
+          </div>
+      </div>
+    <div id="pre" style="display:none; font-size: 1.8em;" class="text-center">
+        
+      
+      <div id="all_text"></div>
+      <button type="button" class="btn btn-success btn-lg" onclick="increase('all');">Yep, already</button>
+      <div class="count" id="all_count" style="float: right;">0</div>
+      <br /><br/>
+
+      <div id="most_text"></div>
+      <button type="button" class="btn btn-warning btn-lg" onclick="increase('most');">Yep, already (and green)</button>
+      <div class="count" id="most_count" style="float: right;">0</div>
+      <br /><br/>
+
+      <div id="some_text"></div>
+      <button type="button" class="btn btn-danger btn-lg" onclick="increase('some');">Yep, already (and orange and green)</button>
+      <div class="count" id="some_count" style="float: right;">0</div>
+      <br />
+      <br />
+
+      <div id="none_text"></div>
+      <button type="button" class="btn btn-lg" onclick="increase('none');">None of these yet!</button>
+      <div class="count" id="none_count" style="float: right;">0</div>
+      <br/> <br />
+      <button type="button" class="btn" onclick="setup_post();">Post-lesson</button>
+
+    </div>
+
+      <div id="results" style="display:none; font-size: 1.9em;" class="text-center">
+      <div id="all_text_post"></div>
+      <button type="button" class="btn btn-success btn-lg" onclick="increase_post('all');">Yep</button>
+      <div class="count" id="all_count_post" style="float: right;">0</div>
+      <br /><br/>
+
+      <div id="most_text_post"></div>
+      <button type="button" class="btn btn-warning btn-lg" onclick="increase_post('most');">Yep (and green)</button>
+      <div class="count" id="most_count_post" style="float: right;">0</div>
+      <br /><br/>
+
+      <div id="some_text_post"></div>
+      <button type="button" class="btn btn-danger btn-lg" onclick="increase_post('some');">Yep (and orange and green)</button>
+      <div class="count" id="some_count_post" style="float: right;">0</div>
+      <br />
+      <br />
+
+      <div id="none_text_post"></div>
+      <button type="button" class="btn btn-lg" onclick="increase_post('none');">None of these :(</button>
+      <div class="count" id="none_count_post" style="float: right;">0</div>
+      <br /><br/>
+
+    </div>
+
+
+  </div>
+  </div>
+</body>
+
+</html>
